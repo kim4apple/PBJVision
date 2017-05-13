@@ -2334,7 +2334,7 @@ previewPhotoSampleBuffer:(CMSampleBufferRef)previewPhotoSampleBuffer
 {
     DLog(@"applicationDidEnterBackground");
     if (_flags.recording)
-        [self pauseVideoCapture];
+        [self cancelVideoCapture];
 
     if (_flags.previewRunning) {
         [self stopPreview];
