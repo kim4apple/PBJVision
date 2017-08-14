@@ -184,6 +184,7 @@ typedef NS_ENUM(GLint, PBJVisionUniformLocationTypes)
         unsigned int thumbnailEnabled:1;
         unsigned int defaultVideoThumbnails:1;
         unsigned int videoCaptureFrame:1;
+		unsigned int audioExportEnabled:1;
     } __block _flags;
 }
 
@@ -272,6 +273,14 @@ typedef NS_ENUM(GLint, PBJVisionUniformLocationTypes)
 - (BOOL)isAudioCaptureEnabled
 {
     return _flags.audioCaptureEnabled;
+}
+
+- (void)setAudioExportEnabled:(BOOL)audioExportEnabled {
+	_flags.audioExportEnabled = (unsigned int)audioExportEnabled;
+}
+
+- (BOOL)isAudioExportEnabled {
+	return _flags.audioExportEnabled;
 }
 
 - (void)setThumbnailEnabled:(BOOL)thumbnailEnabled
@@ -702,7 +711,7 @@ typedef NS_ENUM(GLint, PBJVisionUniformLocationTypes)
         _flags.thumbnailEnabled = YES;
         _flags.defaultVideoThumbnails = YES;
         _flags.audioCaptureEnabled = YES;
-
+		_flags.audioExportEnabled = YES;
         // setup queues
         _captureSessionDispatchQueue = dispatch_queue_create("PBJVisionSession", DISPATCH_QUEUE_SERIAL); // protects session
         _captureCaptureDispatchQueue = dispatch_queue_create("PBJVisionCapture", DISPATCH_QUEUE_SERIAL); // protects capture
@@ -2291,7 +2300,7 @@ previewPhotoSampleBuffer:(CMSampleBufferRef)previewPhotoSampleBuffer
                 }];
             }
 
-        } else if (!isVideo && _flags.videoWritten) {
+        } else if (!isVideo && _flags.videoWritten && _flags.audioExportEnabled) {
             
             [_mediaWriter writeSampleBuffer:bufferToWrite withMediaTypeVideo:isVideo];
             

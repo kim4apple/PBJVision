@@ -224,6 +224,7 @@ static CGFloat const PBJVideoBitRate1280x750 = 5000000 * 8;
 
 @property (nonatomic, getter=isVideoRenderingEnabled) BOOL videoRenderingEnabled;
 @property (nonatomic, getter=isAudioCaptureEnabled) BOOL audioCaptureEnabled;
+@property (nonatomic, getter=isAudioExportEnabled, assign) BOOL audioExportEnabled;
 
 @property (nonatomic, readonly) EAGLContext *context;
 @property (nonatomic) CGRect presentationFrame;
